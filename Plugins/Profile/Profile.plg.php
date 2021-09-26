@@ -1,6 +1,6 @@
 <?php defined('FLATBOARD') or die('Flatboard Community.');
 /**
- * archives
+ * Profile
  *
  * @author 		SurveyBuilder-Admin.
  * @copyright	(c) 2015-2021
