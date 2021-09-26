@@ -2,7 +2,7 @@
 /************* Plugin Info OBBLIGATORIO! ***************/
 $lang[$plugin.'name']           = 'Profilo';
 $lang[$plugin.'version']        = '2.0';
-$lang[$plugin.'update']         = '2021-09-22';
+$lang[$plugin.'update']         = '2021-09-25';
 $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
 $lang[$plugin.'author_site']    = 'https://flatboard.org';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
@@ -12,8 +12,9 @@ $lang[$plugin.'description']    = 'Consenti a tutti gli utenti di creare un prof
 $lang['menu']    				= 'Menù';
 $lang[$plugin.'display_menu']   = 'Visualizza nel menu';
 $lang['Profile'] 			    = 'Profilo';
-$lang['label_user']			    = 'Inserisci la tua password crittografata: <b>Default: true password</b>';
+$lang['label_user_psw']			    = 'Inserisci la tua password crittografata: <b>Default: true password</b>';
 $lang['user_place']             = 'Inserisci la password crittografata';
+$lang['label_username']         = "Inserisci il nome utente personalizzato (questo può essere fatto solo <b> UNA VOLTA</b> contatta l'amministratore del forum per cambiare il nome utente)";
 $lang['user_err']               = 'Deve essere crittografata la password';
 $lang['img_uplod_label']        = 'Inserisci immagine:';
 $lang['save_profile']           = 'Salva';
