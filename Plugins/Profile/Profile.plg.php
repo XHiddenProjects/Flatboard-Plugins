@@ -120,9 +120,11 @@ function Profile_view()
       $out.="<style>.profileCon{background-color:gray;color:white;}.profileCon input[type='text']{width:50%;transition:all 0.5s;}.profileCon input[type='text']:focus{border:4px solid rgba(66, 245, 230, 0.5);width:100%;}.profileCon input[type=submit]{width:100%;border-radius:25px;background-color:blue;color:white;}.profileCon p{text-align:center;font-size:32px; color:lightgray;}</style><div class='con profileCon'>
   <form method='post' enctype='multipart/form-data'>
   <p ".$hide .">".$lang['loggin']."</p>
-  <label>".$lang['label_user']."</label><br/><input type='text' ".$disable." placeholder='".$lang['user_place'] ."' value='".$getCode."' name='psedoProfile' required='' title='".$lang['user_err']."'/>
+  <label>".$lang['label_user_psw']."</label><br/><input type='text' ".$disable." placeholder='Enter Encrypted Password' value='".$getCode."' name='psedoProfile' required='' title='".$lang['user_err']."'/>
   <br/><br/>
   <label>".$lang['img_uplod_label']."</label>&nbsp;<input type='file' ".$disable." required='' name='imgFiles' style='width:100%;' accept='".$data['accept']."'/>
+  <br/><br/>
+    <label>".$lang['label_username']."</label>&nbsp;<br/><input type='text' required='' ".$disable." name='customUsername' placeholder='Enter custom username'/>
   <br/><br/>
   <input type='submit' name='sbtbtn' ".$disable." value='".$lang['save_profile']."'/>
   </form>
@@ -130,6 +132,19 @@ function Profile_view()
   }
   if(isset($_POST['sbtbtn'])){
   $username = $getUser . "_" . $_POST['psedoProfile'];
+  $title = $getUser . "@" . $_POST['psedoProfile'];
+  $customUser = $_POST['customUsername'];
+  //username
+  $tags = flatDB::readEntry('config', 'tags');
+  $tagEntry['title'] = $title;
+		$tagEntry['replace'] = '&lt;span class=&quot;badge badge-secondary&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;top&quot; title=&quot;Waiting&quot;&gt;&lt;i class=&quot;fas fa-minus-circle&quot;&gt;&lt;/i&gt;&lt;/span&gt; '.$customUser.'[locating...]';
+		$tagEntry['hidden_tag'] = 'on';
+		$tagEntry['id'] = flatDB::newEntry();
+		$id = $tagEntry['id'];
+		
+		$tags[$id] = $tagEntry;
+		flatDB::saveEntry('config', 'tags', $tags);
+  //icons
   $target = PATH_PROFILE_AVATAR;
   $file_tar  = $target . basename($_FILES['imgFiles']['name']);
   $out .= $file_tar;
