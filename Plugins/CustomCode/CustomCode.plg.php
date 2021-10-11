@@ -8,7 +8,7 @@
  * @package		FlatBoard
  * @version		1.0
  * @update		2021-09-26
- */	
+ */	 
  
 /**
  * We pre-install the default settings.
