@@ -133,11 +133,7 @@ function CustomCode_footerJS(){
 	if($data[$plugin.'state']){
 		   $assets = HTML_PLUGIN_DIR . $plugin. DS. 'assets' . DS;
     $out .= '<script src="'.$assets.'custom.js?id='.uniqid().'" type="text/javascript"></script>';
-    if(!isset($data['cantDisable'])){
-        $data['cantDisable']  = true;
-    }
-    $out .= "<script>document.querySelector('#switch_CustomCode').disabled = ".$data['cantDisable']."; let x = document.querySelector(".'"'. "div[data-pluginid='CustomCode'] div[". "data-toggle='tooltip'" ."]" . '"'."); x.title='This plugin can not be disabled.';</script>";
-    
+  
 	}
  
     return $out;
