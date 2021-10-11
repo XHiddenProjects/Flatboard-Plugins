@@ -1,6 +1,28 @@
-setTimeout(function(){
-document.querySelector('footer').style.display = "none";
-}, 0);
-setTimeout(function(){
-document.querySelector('small').style.display = "none";
-}, 0);
+body{
+color:white;
+background-color:#343a40;
+}
+.jumbotron{
+background-color:#2b2b2b;
+color:white;
+}
+.card-header h6{
+color:#343a40;
+}
+.breadcrumb .breadcrumb-item{
+color:#343a40;
+}
+.bg-white{
+background-color: #343a40 !important;
+color:white;
+}
+Main.container{
+background-color:#343a40;
+color:white;
+}
+div.card-header{
+color:black;
+}
+pre, table th, table td{
+color: white;
+}
