@@ -114,8 +114,12 @@ if(User::isAdmin()){
 
 function CustomCode_head(){
             $plugin = 'CustomCode';
-    $assets =  HTML_PLUGIN_DIR. $plugin. DS. 'assets' . DS;
+	 $data = flatDB::readEntry('plugin', $plugin);
+	if($data[$plugin.'state']){
+		 $assets =  HTML_PLUGIN_DIR. $plugin. DS. 'assets' . DS;
     $out = "<link rel='stylesheet' href='".$assets.'custom.css?id='.uniqid()."' type='text/css'/>";
+	}
+   
         
         
     
@@ -125,13 +129,17 @@ function CustomCode_head(){
 function CustomCode_footerJS(){
    
         $plugin = 'CustomCode';
-    $assets = HTML_PLUGIN_DIR . $plugin. DS. 'assets' . DS;
+	 $data = flatDB::readEntry('plugin', $plugin);
+	if($data[$plugin.'state']){
+		   $assets = HTML_PLUGIN_DIR . $plugin. DS. 'assets' . DS;
     $out .= '<script src="'.$assets.'custom.js?id='.uniqid().'" type="text/javascript"></script>';
     if(!isset($data['cantDisable'])){
         $data['cantDisable']  = true;
     }
     $out .= "<script>document.querySelector('#switch_CustomCode').disabled = ".$data['cantDisable']."; let x = document.querySelector(".'"'. "div[data-pluginid='CustomCode'] div[". "data-toggle='tooltip'" ."]" . '"'."); x.title='This plugin can not be disabled.';</script>";
     
+	}
+ 
     return $out;
 }
 
