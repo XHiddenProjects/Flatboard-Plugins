@@ -1,10 +1,10 @@
 <?php
 /************* Infos Plugin REQUIS! ***************/
 $lang[$plugin.'name']           = 'Profil';
-$lang[$plugin.'version']        = '2.1';
-$lang[$plugin.'update']         = '2021-09-30';
+$lang[$plugin.'version']        = '2.0';
+$lang[$plugin.'update']         = '2021-09-25';
 $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
-$lang[$plugin.'author_site']    = 'https://flatboard.org';
+$lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboard-Plugins';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
 /************* Langue  ***************/
 $lang[$plugin.'description']    = 'Autoriser tous les utilisateurs à créer un profil personnalisé sur votre forum';

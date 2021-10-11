@@ -4,7 +4,7 @@ $lang[$plugin.'name']           = 'Profil';
 $lang[$plugin.'version']        = '2.1';
 $lang[$plugin.'update']         = '2021-09-30';
 $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
-$lang[$plugin.'author_site']    = 'https://flatboard.org';
+$lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboard-Plugins';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
 /************* Sprache  ***************/
 $lang[$plugin.'description']    = 'Erlauben Sie allen Benutzern, ein benutzerdefiniertes Profil in Ihrem Forum zu erstellen';
