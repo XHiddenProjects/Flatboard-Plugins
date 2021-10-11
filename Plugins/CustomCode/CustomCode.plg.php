@@ -21,10 +21,12 @@ function CustomCode_install()
 	if (flatDB::isValidEntry('plugin', $plugin))
 		return;
 
-    $data[$plugin.'state']   	  	= false; 
+    $data[$plugin.'state']   	  	= true; 
     $data['style']                  = '';
     $data['script']                 = '';
+    $data['cantDisable']            = true;
 
+    
 	flatDB::saveEntry('plugin', $plugin, $data);
 }
 function CustomCode_config(){
@@ -32,7 +34,7 @@ function CustomCode_config(){
     global $lang, $token; 
        $plugin = 'CustomCode';
        $out ='';
-        $assets = $_SERVER['DOCUMENT_ROOT'].str_replace('https://surveybuilder.epizy.com', '', HTML_PLUGIN_DIR). $plugin. DS. 'assets' . DS;
+        $assets = $_SERVER['DOCUMENT_ROOT'].str_replace($lang['domain'], '', HTML_PLUGIN_DIR). $plugin. DS. 'assets' . DS;
 if(User::isAdmin()){
      if(!empty($_POST) && CSRF::check($token) )
        {
@@ -94,6 +96,11 @@ if(User::isAdmin()){
                     .'<a style="color:cyan;text-decoration:underline;" href="./plugin/CustomCode/assets/custom.js" download="custom.js">Download JS</a>
                     </div>
                 </div>'.  
+                '<div class="row">
+                  <div class="col">
+                   <a style="color:cyan;text-decoration:underline;" href="./plugin/CustomCode/removeAssets.php">Delete Assets</a>
+                    </div><br/>
+                </div>'. 
                HTMLForm::simple_submit());
        }
 
@@ -119,8 +126,11 @@ function CustomCode_footerJS(){
    
         $plugin = 'CustomCode';
     $assets = HTML_PLUGIN_DIR . $plugin. DS. 'assets' . DS;
-    $out = "<script src='".$assets.'custom.js?id='.uniqid()."' type='text/javascript'></script>";
-   
+    $out .= '<script src="'.$assets.'custom.js?id='.uniqid().'" type="text/javascript"></script>';
+    if(!isset($data['cantDisable'])){
+        $data['cantDisable']  = true;
+    }
+    $out .= "<script>document.querySelector('#switch_CustomCode').disabled = ".$data['cantDisable']."; let x = document.querySelector(".'"'. "div[data-pluginid='CustomCode'] div[". "data-toggle='tooltip'" ."]" . '"'."); x.title='This plugin can not be disabled.';</script>";
     
     return $out;
 }
