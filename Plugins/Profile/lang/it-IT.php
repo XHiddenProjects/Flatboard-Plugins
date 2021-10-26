@@ -1,8 +1,8 @@
 <?php
 /************* Plugin Info OBBLIGATORIO! ***************/
 $lang[$plugin.'name']           = 'Profilo';
-$lang[$plugin.'version']        = '2.1';
-$lang[$plugin.'update']         = '2021-09-30';
+$lang[$plugin.'version']        = '2.1.1';
+$lang[$plugin.'update']         = '2021-10-26';
 $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
 $lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboard-Plugins';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
