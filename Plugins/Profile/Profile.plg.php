@@ -1,6 +1,6 @@
 <?php defined('FLATBOARD') or die('Flatboard Community.');
 /**
- * Profile
+ * profile
  *
  * @author 		SurveyBuilder-Admin.
  * @copyright	(c) 2015-2021
@@ -100,7 +100,7 @@ function Profile_view()
   $data = flatDB::readEntry('plugin', $plugin);
 
   if($data[$plugin.'state']){
-      if(!User::isWorker()){
+      if(!$_SESSION['trip']){
           $disable = "disabled='true'";
           $hide = "";
       }else{
