@@ -31,7 +31,7 @@ $lang = array(
 'site_slogan' => 'Subtítulo / Descripción del sitio',
 'your_admin_psw' => 'Debe ser del tipo: usuario@mypassword',
 'site_mail' => 'Su cuenta de correo de administrador aquí',
-'install' => 'Instalar en pc',
+'install' => 'Instalar',
 'installed_title' => '<i class = "fa fa-bullhorn"> </i> ¡Sí! Flatboard ahora está instalado',
 'installed_msg' => '¡Ahora, crea foros y comienza a discutir con el mundo! ¿Necesitas ayuda? <a href="https://flatboard.org/view.php/plugin/page/p/docs"> lea el DOC </a>.',
 
