@@ -8,7 +8,7 @@
  * See COPYRIGHT.txt and LICENSE.txt.
 */
 # SetLocal
-setlocale(LC_ALL, 'es_ES', 'es_ES.utf-8', 'es_ES.utf-8', 'esp');
+setlocale(LC_ALL, 'es_ES');
 # Establece la diferencia horaria predeterminada para todas las funciones de fecha / hora  
 date_default_timezone_set("Europe/Spain");
 # Define la codificación interna
@@ -24,7 +24,7 @@ $lang = array(
 
 'in'  => ' <i class="fa fa-clock-o"></i>',
 /************* Instalar en pc.php ***************/
-'php_version' => '¡Debe tener un servidor con <b> PHP 5.2 </b> o posterior para instalar <b> Flatboard </b>!',
+'php_version' => '¡Debe tener un servidor con <b>PHP 5.2</b> o posterior para instalar <b>Flatboard</b>!',
 'flatBoard_installer' => 'Instalador FlatBoard',
 'welcome_installer' => 'Bienvenido al instalador de Flatboard',
 'site_title' => 'El título de su sitio',
@@ -56,7 +56,7 @@ $lang = array(
 'save' => 'Ahorrar',
 'update' => 'Actualizar ',
 'theme' => 'Tema',
-'theme_desc' => '<a href="config.php/deletecache" class="btn btn-primary btn-sm"> <i class = "fa fa-trash" aria-hidden = "true"> </i> Borrar caché </ a >',
+'theme_desc' => '<a href="config.php/deletecache" class="btn btn-primary btn-sm"><i class="fa fa-trash" aria-hidden = "true"></i>Borrar caché</a>',
 'cache_clean' => 'Caché limpiado',
 'folder_deleted' => 'Carpeta eliminada correctamente',
 'folder_error' => 'Error durante la eliminación de la carpeta',
