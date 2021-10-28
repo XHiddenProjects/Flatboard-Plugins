@@ -203,7 +203,7 @@ if(!document.querySelector('#BannedCheck').checked){document.querySelector('#Ban
          $out.='<script>
          function template(t){
              if(t==="default"){
-                 $.get("'.HTML_PLUGIN_DIR.$plugin.'/templates/default.temp.txt", function(data){
+                 $.get("'.HTML_PLUGIN_DIR.$plugin.'/templates/default.template", function(data){
                  document.querySelector("#BanTxtarea").value = data;
              });
              }
