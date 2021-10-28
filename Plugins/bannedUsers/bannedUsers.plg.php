@@ -18,7 +18,7 @@ include(str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT']
 require(str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "lib".DS."bannedUsers.lib.php");
 function bannedUsers_install()
 {
-	global $lang;
+	global $lang, $sessionTrip;
 	$plugin = 'bannedUsers';
 	if (flatDB::isValidEntry('plugin', $plugin))
 		return;
@@ -29,7 +29,7 @@ function bannedUsers_install()
     $data['bannedMessage']           = '';
     $data['ip']                     = '';
     $data['appeal']                 = 'appeal/';
-    $data['isAdmin']                = '';
+    $data['isAdmin']                = str_replace("@", $sessionTrip);;
     
 	flatDB::saveEntry('plugin', $plugin, $data);
 }
