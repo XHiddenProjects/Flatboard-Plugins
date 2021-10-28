@@ -1,0 +1,15 @@
+<div style="text-align:center;">
+<h1>{{GET_USER}} is banned by {{GET_ADMIN}}</h1>
+<br/>
+<h3>Reason: <b>using faulty language</b></h3>
+<br/>
+<h3>Banned at: {{GET_DATETIME}}</h3>
+<br/>
+<h3>Internet Protocol: {{GET_IP}}</h3>
+<br/>
+<h3>Browser {{GET_BROWSER}}</h3>
+<br/>
+<h3>Appeal: <a href="{{GET_APPEAL_LINK}}">{{GET_APPEAL_LINK}}</a></h3>
+<br/>
+{{POST_IMAGES}}
+</div>
