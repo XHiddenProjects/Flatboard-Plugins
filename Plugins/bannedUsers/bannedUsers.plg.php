@@ -47,7 +47,7 @@ function bannedUsers_config()
                $data['isBanned'] 		 = HTMLForm::clean($_POST['BannedCheck']);
                $data['bannedMessage']    = HTMLForm::clean($_POST['BanTxtarea']);
                $data['appealURI']        = HTMLForm::clean($_POST['appealURI']);
-                $data['isAdmin']        = str_replace("@", $sessionTrip)
+                $data['isAdmin']        = str_replace("@", $sessionTrip);
                $db = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS .$data['username'].".dat.json";
               if(file_exists($db)){
                   $getContent = file_get_contents($db);
