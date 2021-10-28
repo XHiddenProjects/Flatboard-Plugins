@@ -29,6 +29,7 @@ function bannedUsers_install()
     $data['bannedMessage']           = '';
     $data['ip']                     = '';
     $data['appeal']                 = 'appeal/';
+    $data['isAdmin']                = '';
     
 	flatDB::saveEntry('plugin', $plugin, $data);
 }
@@ -46,6 +47,7 @@ function bannedUsers_config()
                $data['isBanned'] 		 = HTMLForm::clean($_POST['BannedCheck']);
                $data['bannedMessage']    = HTMLForm::clean($_POST['BanTxtarea']);
                $data['appealURI']        = HTMLForm::clean($_POST['appealURI']);
+                $data['isAdmin']        = str_replace("@", $sessionTrip)
                $db = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS .$data['username'].".dat.json";
               if(file_exists($db)){
                   $getContent = file_get_contents($db);
@@ -91,8 +93,8 @@ function bannedUsers_config()
              
                
                
-               $getAdmin = explode("@", $sessionTrip);
-               $data['bannedMessage'] = str_replace("{{GET_ADMIN}}", $getAdmin[0] , $data['bannedMessage']);
+            
+               $data['bannedMessage'] = str_replace("{{GET_ADMIN}}", $data['isAdmin'], $data['bannedMessage']);
                 $data['bannedMessage'] = str_replace("{{GET_USER}}", $data['username'], $data['bannedMessage']);
                 $data['bannedMessage'] = str_replace("{{GET_DATETIME}}", date("m-d-Y h:i:sa"), $data['bannedMessage']);
                 $data['bannedMessage'] = str_replace("{{GET_DATE}}", date("m-d-Y"), $data['bannedMessage']);
