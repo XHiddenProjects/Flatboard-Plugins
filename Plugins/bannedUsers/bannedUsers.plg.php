@@ -29,14 +29,14 @@ function bannedUsers_install()
     $data['bannedMessage']           = '';
     $data['ip']                     = '';
     $data['appeal']                 = 'appeal/';
-    $data['isAdmin']                = str_replace("@", $sessionTrip);;
+    $data['isAdmin']                = str_replace("@", '', $sessionTrip);
     
 	flatDB::saveEntry('plugin', $plugin, $data);
 }
 
 function bannedUsers_config()
 {
- global $lang, $token, $sessionTrip, $imgs, $vids; 
+ global $lang, $token, $sessionTrip, $imgs, $vids, $whitelist, $replace, $int; 
  $plugin = "bannedUsers";
  $out = '';
  if(User::isAdmin()){
@@ -48,6 +48,8 @@ function bannedUsers_config()
                $data['bannedMessage']    = HTMLForm::clean($_POST['BanTxtarea']);
                $data['appealURI']        = HTMLForm::clean($_POST['appealURI']);
                 $data['isAdmin']        = str_replace("@", $sessionTrip);
+           
+               
                $db = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS .$data['username'].".dat.json";
               if(file_exists($db)){
                   $getContent = file_get_contents($db);
@@ -105,12 +107,16 @@ function bannedUsers_config()
                 $data['bannedMessage'] = str_replace("{{POST_IMAGES}}", $imgs, $data['bannedMessage']);
                 $data['bannedMessage'] = str_replace("{{POST_VIDEOS}", $vids, $data['bannedMessage']);
 
-                $dom = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS . $data['username'].".dat.json";
+                $dom = PLUGIN_DIR . $plugin . DS. "db". DS . $data['username'].".dat.json";
                 $createFile = fopen($dom, "w+");
                 $data['bannedMessage'] = str_replace(array("\r","\n"), "", $data['bannedMessage']);
+               
                     fwrite($createFile, '{"username":"'.$data['username'].'", "isBanned":"'.$data['isBanned'].'", "bannedMessage": "'.$data['bannedMessage'].'", "ip":"'.$data['ip'].'"}');
                     fclose($createFile);
+                   
                 
+                    
+
 
                 flatDB::saveEntry('plugin', $plugin, $data);
                $out .= Plugin::redirectMsg($lang['data_save'],'config.php' . DS . 'plugin' . DS . $plugin, $lang['plugin'].'&nbsp;<b>' .$lang[$plugin.'name']. '</b>');
@@ -122,6 +128,12 @@ function bannedUsers_config()
                }else{
                    $span_err = '';
                }
+                $getList= PLUGIN_DIR.$plugin.DS."db".DS."whitelist.json";
+                    $getWhitelisted = file_get_contents($getList);
+                    
+                    $query = json_decode($getWhitelisted);
+                    $whitelist = $query->whitelisted;
+
                $out .= HTMLForm::form('config.php' . DS . 'plugin' . DS . $plugin, 
                '
                <div class="row">
@@ -160,24 +172,46 @@ function bannedUsers_config()
                HTMLForm::simple_submit()
                );
        }
-       $out.="<ul style='position:absolute;bottom:-10%;background-color:cyan;color:black;width:60%;height:10%;overflow:auto;font-size:25px;'>";
- $getDom = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS;
+       $out.="<span id='panelbtn' onclick='showDisplayer()' data-toggle='tooltip' data-placement='top' title='Open Panel'>Open Panel</span>";
+       $out.="<span id='displayCon'><div class='closebtn' onclick='hideDisplayer()'><i class='fas fa-times-circle' title='Close'></i> Close</div>";
+ $getDom = PLUGIN_DIR . $plugin . DS. "db". DS;
                     $files = glob($getDom."*.dat.json");
+                   
+                  
+                    for($i=0;$i<count($whitelist);$i++){
+                        $int = $i;
+                    }
                     foreach($files as $file){
                         $replace = str_replace($getDom,"",$file);
-                         
-                        if(!CheckBanned($replace)){
-                             $out.= "<li style='list-style:none;'>".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?ban=".$replace."'><i class='fas fa-user-unlock' title='Ban' style='color:green;'></i></a></li>"; 
+
+                    
+                         if(!CheckBanned($replace)){
+                            if($whitelist[$int] === str_replace(".dat.json", "",$replace)){
+ $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-exclamation-triangle'></i> This user has been whitelisted</div>"; 
+                      }else{
+                          
+                           $out.= "<div class='alert alert-success' role='alert'><i class='fas fa-check-circle'></i> ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?ban=".$replace."'><i class='fas fa-user-unlock' title='Ban' style='color:green;'></i></a></div>"; 
+                      }
+                            
                         }else{
-$out.= "<li style='list-style:none;'>".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?unban=".$replace."'><i class='fas fa-user-lock' title='Unban' style='color:red;'></i></a></li>"; 
+                            if($whitelist[$int] === str_replace(".dat.json", "",$replace)){
+                                $out.= "<div class='alert alert-danger' role='alert'> <i class='fas fa-exclamation-triangle'></i>This user has been whitelisted</div>"; 
+                            }else{
+$out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle'></i> ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?unban=".$replace."'><i class='fas fa-user-lock' title='Unban' style='color:red;'></i></a></div>"; 
+                            }
+
                         }
+
+                    }
+                       
+                    }
                         
-                        }
-        $out.="</ul>";
+                        
+        $out.="</span>";
        return $out;
 
     }
- }
+
  function bannedUsers_head(){
      global $sessionTrip;
        $plugin = 'bannedUsers';
@@ -185,8 +219,22 @@ $out.= "<li style='list-style:none;'>".$replace." <a href='".str_replace($_SERVE
      $data = flatDB::readEntry('plugin', $plugin);
      if($data[$plugin.'state']){
          $out .= "<link rel='stylesheet' href='https://proicons.netlify.app/css/icons.min.css'/>";
+         $out .= "<style>.alert-success{
+             background-color:#38ff66 !important;
+             border-color:#b4e0be !important;
+         }
+         .closebtn{
+             background-color:gray;color:red;font-size:30px;cursor:pointer;
+         }
+         #panelbtn{
+             position:absolute;bottom:0;left:4%;font-size:20px;background-color:#343A40;cursor:pointer;
+         }
+         #displayCon{
+             position:absolute;top:40%;left:50%;transform:translate(-40%,-50%);background-color:cyan;color:black;display:block;width:60%;height:45%;overflow:auto;font-size:25px;display:none;
+         }
+         </style>";
          if($sessionTrip){
-             CreateUser($sessionTrip,'','',User::getRealIpAddr());
+             CreateUser($sessionTrip,'','', '', User::getRealIpAddr());
          }
      }
       
@@ -212,8 +260,18 @@ if(!document.querySelector('#BannedCheck').checked){document.querySelector('#Ban
              
          }
          </script>';
+         $out.="<script>
+        function hideDisplayer(){
+             document.querySelector('#displayCon').style.display = 'none';
+             document.querySelector('#panelbtn').style.display = 'block';
+         }
+         function showDisplayer(){
+              document.querySelector('#displayCon').style.display = 'block';
+             document.querySelector('#panelbtn').style.display = 'none';
+         }
+         </script>";
          if($sessionTrip){ 
-             $getDom = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS;
+             $getDom =PLUGIN_DIR . $plugin . DS. "db". DS;
              $files = glob($getDom."*.dat.json");
              foreach($files as $file){
                  $getContent = file_get_contents($file);
