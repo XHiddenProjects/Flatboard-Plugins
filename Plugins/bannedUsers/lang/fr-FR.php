@@ -1,8 +1,8 @@
 <?php
 /************* Plugin Info REQUIRED! ***************/
 $lang[$plugin.'name']           = 'Banned Users';
-$lang[$plugin.'version']        = '1.0.1';
-$lang[$plugin.'update']         = '2021-10-25';
+$lang[$plugin.'version']        = '1.1.0';
+$lang[$plugin.'update']         = '2021-10-29';
 $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
 $lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboard-Plugins';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
