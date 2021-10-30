@@ -18,4 +18,5 @@ $lang['alert']      = 'Si vous vous bannissez accidentellement, remplacez <i>isB
 $lang['err_missing_spanish'] = "Erreur : il vous manque une langue espagnole";
 $lang['enterURI']                  = $_SERVER['HTTP_HOST']."/{Entrez l'URI}";
 $lang['appealURI']             = 'Entrez l’URL de l’appel:';
+$lang['whitelisted_err']      = 'Cet utilisateur a été mis sur liste blanche';
 ?>

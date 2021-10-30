@@ -18,4 +18,5 @@ $lang['alert']      = 'Если вы случайно забаните себя,
 $lang['err_missing_spanish'] = "Ошибка: вам не хватает испанского языка";
 $lang['enterURI']                  = $_SERVER['HTTP_HOST']."/{Введите URI}";
 $lang['appealURI']             = 'Введите URL-адрес апелляции:';
+$lang['whitelisted_err']      = 'Этот пользователь был занесн в белый список';
 ?>

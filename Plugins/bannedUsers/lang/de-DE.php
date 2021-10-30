@@ -18,4 +18,5 @@ $lang['alert']      = 'Wenn Sie sich versehentlich selbst sperren, ändern Sie <
 $lang['err_missing_spanish'] = "Fehler: Ihnen fehlt eine spanische Sprache";
 $lang['enterURI']                  = $_SERVER['HTTP_HOST'].'/{URI eingeben}';
 $lang['appealURI']             = 'Url für Einspruch eingeben:';
+$lang['whitelisted_err']      = 'Dieser Benutzer wurde auf die Whitelist gesetzt';
 ?>

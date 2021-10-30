@@ -18,4 +18,5 @@ $lang['alert']      = 'If you accidentaly ban yourself, change <i>isBanned</i> t
 $lang['err_missing_spanish'] = "Error: you are missing a spanish language";
 $lang['enterURI']                  = $_SERVER['HTTP_HOST'].'/{Enter URI}';
 $lang['appealURI']             = 'Enter Appeal URL:';
+$lang['whitelisted_err']      = 'This user has been whitelisted';
 ?>

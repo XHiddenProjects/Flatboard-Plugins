@@ -18,4 +18,5 @@ $lang['alert']      = 'Se ti bannassi accidentalmente, cambia <i>isBanned</i> in
 $lang['err_missing_spanish'] = "Errore: ti manca una lingua spagnola";
 $lang['enterURI']                  = $_SERVER['HTTP_HOST']."/{Inserisci URI}";
 $lang['appealURI']             = "Inserisci l'URL del ricorso:";
+$lang['whitelisted_err']      = 'Questo utente è stato inserito nella whitelist';
 ?>
