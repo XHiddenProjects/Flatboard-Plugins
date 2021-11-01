@@ -36,7 +36,7 @@ function bannedUsers_install()
 
 function bannedUsers_config()
 {
- global $lang, $token, $sessionTrip, $imgs, $vids, $whitelist, $replace, $int; 
+ global $lang, $token, $sessionTrip, $imgs, $vids, $replace;
  $plugin = "bannedUsers";
  $out = '';
  if(User::isAdmin()){
@@ -128,11 +128,19 @@ function bannedUsers_config()
                }else{
                    $span_err = '';
                }
-                $getList= PLUGIN_DIR.$plugin.DS."db".DS."whitelist.json";
-                    $getWhitelisted = file_get_contents($getList);
+                
+                 
+
                     
-                    $query = json_decode($getWhitelisted);
-                    $whitelist = $query->whitelisted;
+                                  
+                           
+                      
+                           
+                          
+                       
+                       
+                    
+                    
 
                $out .= HTMLForm::form('config.php' . DS . 'plugin' . DS . $plugin, 
                '
@@ -177,32 +185,33 @@ function bannedUsers_config()
  $getDom = PLUGIN_DIR . $plugin . DS. "db". DS;
                     $files = glob($getDom."*.dat.json");
                    
+                
+               
+         
                   
-                    for($i=0;$i<count($whitelist);$i++){
-                        $int = $i;
-                    }
-                    foreach($files as $file){
-                        $replace = str_replace($getDom,"",$file);
-
+                    foreach($files as $fkey => $file){
+                      
+                     $replace = str_replace($getDom,"",$file);
                     
+         
+                    
+              
                          if(!CheckBanned($replace)){
-                            if($whitelist[$int] === str_replace(".dat.json", "",$replace)){
- $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-exclamation-triangle'></i> This user has been whitelisted</div>"; 
-                      }else{
-                          
                            $out.= "<div class='alert alert-success' role='alert'><i class='fas fa-check-circle'></i> ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?ban=".$replace."'><i class='fas fa-user-unlock' title='Ban' style='color:green;'></i></a></div>"; 
-                      }
-                            
                         }else{
-                            if($whitelist[$int] === str_replace(".dat.json", "",$replace)){
-                                $out.= "<div class='alert alert-danger' role='alert'> <i class='fas fa-exclamation-triangle'></i>This user has been whitelisted</div>"; 
-                            }else{
 $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle'></i> ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?unban=".$replace."'><i class='fas fa-user-lock' title='Unban' style='color:red;'></i></a></div>"; 
                             }
 
-                        }
+                        
+                    
+
+                    
 
                     }
+
+             
+
+            
                        
                     }
                         
