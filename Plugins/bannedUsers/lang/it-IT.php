@@ -22,4 +22,6 @@ $lang['whitelisted_err']      = 'Questo utente è stato inserito nella whitelist
 $lang['pendFail']            = 'Utente non riuscito...';
 $lang['pend']               = 'utente in sospeso...';
 $lang['pendExpire']        = 'rimuoverà in';
+$lang['panelOpen']       = 'Apri pannello';
+$lang['panelClose']     = 'Chiudi pannello';
 ?>

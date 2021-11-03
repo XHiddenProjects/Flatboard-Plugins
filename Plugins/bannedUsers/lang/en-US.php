@@ -22,4 +22,6 @@ $lang['whitelisted_err']      = 'This user has been whitelisted';
 $lang['pendFail']            = 'Failed user...';
 $lang['pend']               = 'pending user...';
 $lang['pendExpire']        = 'will remove in';
+$lang['panelOpen']       = 'Open Panel';
+$lang['panelClose']     = 'Close Panel';
 ?> 

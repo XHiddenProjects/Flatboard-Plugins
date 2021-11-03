@@ -22,4 +22,6 @@ $lang['whitelisted_err']      = 'Этот пользователь был зан
 $lang['pendFail']            = 'Неудачный пользователь...';
 $lang['pend']               = 'ожидающий пользователь...';
 $lang['pendExpire']        = 'удалит в';
+$lang['panelOpen']       = 'Открыть панель';
+$lang['panelClose']     = 'Закрыть панель';
 ?>
