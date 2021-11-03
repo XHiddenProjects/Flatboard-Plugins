@@ -1,8 +1,8 @@
 <?php
 /************* Plugin Info REQUIRED! ***************/
 $lang[$plugin.'name']           = 'Banned Users';
-$lang[$plugin.'version']        = '1.1.0';
-$lang[$plugin.'update']         = '2021-10-29';
+$lang[$plugin.'version']        = '1.2.0';
+$lang[$plugin.'update']         = '2021-11-03';
 $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
 $lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboard-Plugins';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
@@ -19,4 +19,7 @@ $lang['err_missing_spanish'] = "Erreur : il vous manque une langue espagnole";
 $lang['enterURI']                  = $_SERVER['HTTP_HOST']."/{Entrez l'URI}";
 $lang['appealURI']             = 'Entrez l’URL de l’appel:';
 $lang['whitelisted_err']      = 'Cet utilisateur a été mis sur liste blanche';
+$lang['pendFail']            = 'Utilisateur défaillant...';
+$lang['pend']               = 'utilisateur en attente...';
+$lang['pendExpire']        = 'supprimera dans';
 ?>
