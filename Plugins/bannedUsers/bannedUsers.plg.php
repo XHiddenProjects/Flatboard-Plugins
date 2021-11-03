@@ -271,8 +271,8 @@ $getAgent = getBrowser();
                HTMLForm::simple_submit()
                );
        }
-       $out.="<span id='panelbtn' onclick='showDisplayer()' data-toggle='tooltip' data-placement='top' title='Open Panel'>Open Panel</span>";
-       $out.="<span id='displayCon'><div class='closebtn' onclick='hideDisplayer()' data-toggle='tooltip' data-placement='top' title='Close Panel'><i class='fas fa-times-circle'></i> Close Panel</div>";
+       $out.="<span id='panelbtn' onclick='showDisplayer()' data-toggle='tooltip' data-placement='top' title='".$lang['panelOpen']."'>".$lang['panelOpen']."</span>";
+       $out.="<span id='displayCon'><div class='closebtn' onclick='hideDisplayer()' data-toggle='tooltip' data-placement='top' title='".$lang['panelClose']."'><i class='fas fa-times-circle'></i> ".$lang['panelClose']."</div>";
  $getDom = PLUGIN_DIR . $plugin . DS. "db". DS;
                     $files = glob($getDom."*.dat.json");
                    
