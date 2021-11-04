@@ -14,8 +14,13 @@
 /**
  * We pre-install the default settings.
 **/
-include(str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "createFileSession.php");
-require(str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "lib".DS."bannedUsers.lib.php");
+include(PLUGIN_DIR . $plugin . DS. "createFileSession.php");
+//plugins
+ require(PLUGIN_DIR . $plugin . DS. "plugins".DS."alertUI".DS."alertUI.plg.php");
+
+//contruct
+require(PLUGIN_DIR . $plugin . DS. "lib".DS."bannedUsers.lib.php");
+
 function bannedUsers_install()
 {
 	global $lang, $sessionTrip;
@@ -40,6 +45,7 @@ function bannedUsers_config()
  global $lang, $token, $sessionTrip, $imgs, $vids, $replace;
  $plugin = "bannedUsers";
  $out = '';
+ $bannedLibs = new bannedUsers();
  if(User::isAdmin()){
       if(!empty($_POST) && CSRF::check($token) )
        {
@@ -63,6 +69,9 @@ function bannedUsers_config()
                   }
                   
               }
+
+
+
                //keywords
              
               if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
@@ -271,26 +280,28 @@ $getAgent = getBrowser();
                HTMLForm::simple_submit()
                );
        }
+
+                
+         
+    
        $out.="<span id='panelbtn' onclick='showDisplayer()' data-toggle='tooltip' data-placement='top' title='".$lang['panelOpen']."'>".$lang['panelOpen']."</span>";
        $out.="<span id='displayCon'><div class='closebtn' onclick='hideDisplayer()' data-toggle='tooltip' data-placement='top' title='".$lang['panelClose']."'><i class='fas fa-times-circle'></i> ".$lang['panelClose']."</div>";
  $getDom = PLUGIN_DIR . $plugin . DS. "db". DS;
                     $files = glob($getDom."*.dat.json");
                    
 
-               
-         
                   
                     foreach($files as $file){
                       
                      $replace = str_replace($getDom,"",$file);
                     
                        
-                    if(isFailed($replace)){
+                    if($bannedLibs->isFailed($replace)){
                 $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle'></i> Failed user... ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?delete=".$replace."'><i class='fas fa-user-times title='Delete User' style='color:red;'></i></a> | <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?repend=".$replace."'><i class='fas fa-sync-alt' title='Repend' style='color:blue;'></i></a></div>"; 
                     }else{
        
-                        if(isPending($replace)){
-                            if(!checkPending($replace)){
+                        if($bannedLibs->isPending($replace)){
+                            if(!$bannedLibs->checkPending($replace)){
                                     $plugin = 'bannedUsers';
  $dom = PLUGIN_DIR . $plugin . DS. "db". DS . $replace;
            $createFile = fopen($dom, "w+");
@@ -298,12 +309,16 @@ $getAgent = getBrowser();
                     fclose($createFile);
                        $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle'></i> ".$lang['pendFail']." ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?delete=".$replace."'><i class='fas fa-user-times' title='Delete User' style='color:red;'></i></a> | <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?repend=".$replace."'><i class='fas fa-sync-alt' title='Repend' style='color:blue;'></i></a></div>"; 
                             }else{
-                                $getPend = pendingExpire($replace);
+                                $getPend = $bannedLibs->pendingExpire($replace);
+                               if($getPend <= 3){
+                                     $ui = new alertUI();
+                                    $out.= $ui->create('halfPoint',  $ui->replace(".dat.json","",$replace) . " have ". $getPend . " until failure"); 
+                                }
                         $out.= "<div class='alert alert-warning' role='alert'><i class='fas fa-exclamation-triangle'></i> ".$lang['pend']  ." ".$replace." ".$lang['pendExpire']  ." ".$getPend." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?delete=".$replace."'><i class='fas fa-user-times' title='Cancel Pending' style='color:red;'></i></a></div>"; 
                             }
                     
                         }else{
-                            if(!CheckBanned($replace)){
+                            if(!$bannedLibs->CheckBanned($replace)){
                            $out.= "<div class='alert alert-success' role='alert'><i class='fas fa-check-circle'></i> ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?ban=".$replace."'><i class='fas fa-user-unlock' title='Ban' style='color:green;'></i></a></div>"; 
                         }else{
 $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle'></i> ".$replace." <a href='".str_replace($_SERVER["DOCUMENT_ROOT"],"",$getDom)."status.php?unban=".$replace."'><i class='fas fa-user-lock' title='Unban' style='color:red;'></i></a></div>"; 
@@ -327,6 +342,8 @@ $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circ
                         
                         
         $out.="</span>";
+                    
+    
        return $out;
 
     }
@@ -351,7 +368,10 @@ $out.= "<div class='alert alert-danger' role='alert'><i class='fas fa-times-circ
          #displayCon{
              position:absolute;top:40%;left:50%;transform:translate(-40%,-50%);background-color:cyan;color:black;display:block;width:60%;height:45%;overflow:auto;font-size:25px;display:none;
          }
+         
          </style>";
+          $ui = new alertUI();
+         $out .= $ui->style();
          if($sessionTrip){
              CreateUser($sessionTrip,'','', User::getRealIpAddr(), 'active', date('Y-m-d'));
          }
@@ -388,6 +408,7 @@ if(!document.querySelector('#BannedCheck').checked){document.querySelector('#Ban
               document.querySelector('#displayCon').style.display = 'block';
              document.querySelector('#panelbtn').style.display = 'none';
          }
+         
          </script>";
          if($sessionTrip){ 
              $getDom =PLUGIN_DIR . $plugin . DS. "db". DS;
