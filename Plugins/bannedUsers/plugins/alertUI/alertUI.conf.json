@@ -1,0 +1,16 @@
+{
+    "alert": {
+        "type": "danger",
+        "confirm": false,
+        "onEvents":{
+            "onClose": "",
+            "onOpen": "",
+            "onSuccess": "",
+            "onFailed": ""
+        },
+        "loadOn":{
+            "event": "preload"
+        }
+        
+    }
+}
