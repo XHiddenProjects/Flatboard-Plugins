@@ -8,5 +8,5 @@ $lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboa
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
 /************* Language  ***************/
 $lang[$plugin.'description']    = 'Allows you to make custom pages to the forum';
-
+ 
 ?>
