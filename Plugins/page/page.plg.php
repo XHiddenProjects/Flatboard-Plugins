@@ -14,6 +14,8 @@
  * On pré-installe les paramètres par défauts.
 **/
 
+require("views/view.lib.php");
+
 function page_install()
 {
 	global $lang;
@@ -119,6 +121,32 @@ $files = array_diff(scandir($path), array('.', '..'));
 $list = '';
   if ($data[$plugin.'state'] && $data[$plugin.'display_menu']) 
 
+    if(!file_exists(PLUGIN_DIR."page".DS."views".DS."view.".basename($_SERVER['REQUEST_URI']).".json")){
+        $file = fopen(PLUGIN_DIR."page".DS."views".DS."view.".basename($_SERVER['REQUEST_URI']).".json", "w+");
+        $getView = '
+        {
+            "views": 1
+        }
+        ';
+        fwrite($file, $getView);
+        fclose($file);
+    }else{
+       $getContent = file_get_contents(PLUGIN_DIR."page".DS."views".DS."view.".basename($_SERVER['REQUEST_URI']).".json");
+        $query = json_decode($getContent);
+        $addView = floatval($query->views) + 1;
+         $file = fopen(PLUGIN_DIR."page".DS."views".DS."view.".basename($_SERVER['REQUEST_URI']).".json", "w+");
+  
+        $getView = '
+        {
+            "views": '. $addView.'
+        }
+        ';
+        fwrite($file, $getView);
+        fclose($file);
+    }
+    $grabView = new getViews();
+    $d = $grabView->toCalc($query->views);
+    $out .= $grabView->ConvertToBadge($d);
        $out .= file_get_contents(PLUGIN_DIR."page".DS."p".DS.basename($_SERVER['REQUEST_URI'].".php"));
    
    
