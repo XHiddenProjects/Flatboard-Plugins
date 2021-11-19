@@ -34,8 +34,8 @@ function bannedUsers_install()
     $data['bannedMessage']           = '';
     $data['ip']                     = '';
     $data['appeal']                 = 'appeal/';
- $adminGetter = explode("@", $sessionTrip);
-                $data['isAdmin']        =  $adminGetter[0];
+    $adminGetter = explode("@", $sessionTrip);
+    $data['isAdmin']        =  $adminGetter[0];
     
 	flatDB::saveEntry('plugin', $plugin, $data);
 }
@@ -58,7 +58,7 @@ function bannedUsers_config()
                 $data['isAdmin']        =  $adminGetter[0];
            
                
-               $db = str_replace("https://surveybuilder.epizy.com", $_SERVER['DOCUMENT_ROOT'],HTML_PLUGIN_DIR) . $plugin . DS. "db". DS .$data['username'].".dat.json";
+               $db = PLUGIN_DIR . $plugin . DS. "db". DS .$data['username'].".dat.json";
               if(file_exists($db)){
                   $getContent = file_get_contents($db);
                   $query = json_decode($getContent);
@@ -88,18 +88,18 @@ function bannedUsers_config()
                       $imgs = htmlspecialchars('<div class="alert alert-danger" role="alert">Error: '.$img.' is not a valid image type</div>', ENT_QUOTES);
                   }else{
                        $id = uniqid();
-                  $imgs = htmlspecialchars('<img src="'.HTML_PLUGIN_DIR.$plugin.DS."img".DS.$img.'" width="320" height="320" alt="'.$id.'" title="image-'.$id.'"/>', ENT_QUOTES);
+                  $imgs = htmlspecialchars('<img src="'.HTML_PLUGIN_DIR.$plugin.DS."assets/imgs".DS.$img.'" width="320" height="320" alt="'.$id.'" title="image-'.$id.'"/>', ENT_QUOTES);
                   }
                  
               }
     //videos
               $video = scandir(PLUGIN_DIR.$plugin.DS."assets/vids");
               foreach($video as $vid){
-                  if(!preg_match("/\.(mp(eg)?4|mov|wmv)$/i", $img)){
-                      $vids = htmlspecialchars('<div class="alert alert-danger" role="alert">Error: '.$img.' is not a valid video type</div>', ENT_QUOTES);
+                  if(!preg_match("/\.(mp(eg)?4|mov|wmv)$/i", $vid)){
+                      $vids = htmlspecialchars('<div class="alert alert-danger" role="alert">Error: '.$vid.' is not a valid video type</div>', ENT_QUOTES);
                   }else{
                        $id = uniqid();
-                  $vids = htmlspecialchars('<video src="'.HTML_PLUGIN_DIR.$plugin.DS."img".DS.$img.'" width="320" height="320" alt="'.$id.'" title="image-'.$id.'"></video>', ENT_QUOTES);
+                  $vids = htmlspecialchars('<video src="'.HTML_PLUGIN_DIR.$plugin.DS."assets/vids".DS.$vid.'" width="320" height="320" alt="'.$id.'" title="image-'.$id.'"></video>', ENT_QUOTES);
                   }
                  
               }
@@ -208,12 +208,24 @@ $getAgent = getBrowser();
                 $data['bannedMessage'] = str_replace("{{POST_VIDEOS}", $vids, $data['bannedMessage']);
 
                 $dom = PLUGIN_DIR . $plugin . DS. "db". DS . $data['username'].".dat.json";
+                if(file_exists($dom)){
+                              $contents = file_get_contents($dom);
+                $deco = json_decode($contents);
+                }
+                if(!file_exists($dom)){
                 $createFile = fopen($dom, "w+");
                 $data['bannedMessage'] = str_replace(array("\r","\n"), "", $data['bannedMessage']);
-               
-                    fwrite($createFile, '{"username":"'.$data['username'].'", "isBanned":"'.$data['isBanned'].'", "bannedMessage": "'.$data['bannedMessage'].'", "ip":"'.$data['ip'].'", "status": "pending", "timeStamp":"'.date('Y-m-d').'"}');
+               echo "created";
+                    fwrite($createFile, '{"username":"'.$data['username'].'", "isBanned":"'.$data['isBanned'].'", "bannedMessage": "'.$data['bannedMessage'].'",                "ip":"'.$data['ip'].'", "status": "pending", "timeStamp":"'.date('Y-m-d').'"}');
                     fclose($createFile);
-                   
+                }else{
+                     $createFile = fopen($dom, "w+");
+                    $data['bannedMessage'] = str_replace(array("\r","\n"), "", $data['bannedMessage']);
+           echo "updated";
+                    fwrite($createFile, '{"username":"'.$data['username'].'", "isBanned":"'.$data['isBanned'].'", "bannedMessage": "'.$data['bannedMessage'].'",                "ip":"'.$data['ip'].'", "status": "'.$deco->status.'", "timeStamp":"'.date('Y-m-d').'"}');
+                    fclose($createFile);
+                }
+               
                 
                     
 
