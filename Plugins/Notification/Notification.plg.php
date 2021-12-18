@@ -64,14 +64,17 @@ function Notification_menu(){
 
  $isRead = array_values(array_diff(scandir($db_read), array('..', '.')));
 
-$i=0;
+$new=0;
+$old=0;
+$total=0;
 if(count($isRead) === 0 || !count($isRead)){
-$i = $i+count($reply)+count($topic);
+$new = $new+count($reply)+count($topic);
 }else{
-$i = $i+count($reply)+count($topic)-count($isRead);
+$new = $new+count($reply)+count($topic)-count($isRead);
 }
 
-
+$old = $old+count($reply)+count($topic)-$new;
+$total = $total+count($reply)+count($topic);
 
   if(isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'on'){
   $img = str_replace($_SERVER['DOCUMENT_ROOT'], "https://".$_SERVER['SERVER_NAME'], $img);
@@ -84,14 +87,14 @@ $i = $i+count($reply)+count($topic)-count($isRead);
       $star = array("FavState"=>"","FavStr"=>"");
       $star = array("FavState_1"=>"","FavStr_1"=>"");
   $out ='';
-    if($i > 0){
+    if($new > 0){
         $bellIcon = HTML_PLUGIN_DIR.$plugin.DS."assets".DS."bell_notify.png";
     }else{
         $bellIcon = HTML_PLUGIN_DIR.$plugin.DS."assets".DS."bell.png";
     }
   $out .= '<div class="icon" id="bell"><img src="'.$bellIcon.'" alt="bell_icon"/></div>
    <div class="notifications" id="box">
-        <h2>Notifications - <span>'.$i.'</span></h2>';
+        <h2>Notifications - <span>'.$new.'</span> new | <span>'.$old.'</span> old | <span>'.$total.'</span> total</h2>';
         foreach($reply as $r){
         # upload to extract JSON
         $data = strval(file_get_contents($replys.$r));
@@ -207,18 +210,12 @@ $out .= '<div class="notifications-item" style="background-color:rgba(173,173,17
                 <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState_1'].'&r='.$t.'&session='.$remote.'">'.$mark['NotiStr_1'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState_1']."&r=".$t."&session=".$remote.'">'.$mark['FavStr_1'].'</a></p>
             </div>';
             }
-               
+          
       $out.= '</div>';
 
     }
     $out.= '</div>';
-                                     /*    
-             <div class="notifications-item"> <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
-                <div class="text">
-                <h4>John Silvester</h4>
-                <p>+20 vista badge earned</p>
-            </div>
-        </div>*/
+                       
                                         
 
    
