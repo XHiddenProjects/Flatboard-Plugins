@@ -143,12 +143,22 @@ $total = $total+count($reply)+count($topic);
             </div>';
             }
         }else{
-        $out .= '<div class="notifications-item"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+            if($mark['FavState'] === "1"){
+ $out .= '<div class="notifications-item"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+            $out.=' <div class="text">
+             <i class="fas fa-star"></i>
+                <h4>'.$replyQuery['trip'].'</h4>
+                <p>Replayed to: <a href="'.$removePlugN.'/topic/'.$selTop.'">'.$topicQuery['title'].'<a></p>
+                <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState'].'&r='.$r.'&session='.$remote.'">'.$mark['NotiStr'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState']."&r=".$r."&session=".$remote.'">'.$mark['FavStr'].'</a></p>
+            </div>';
+            }else{
+ $out .= '<div class="notifications-item"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
             $out.=' <div class="text">
                 <h4>'.$replyQuery['trip'].'</h4>
                 <p>Replayed to: <a href="'.$removePlugN.'/topic/'.$selTop.'">'.$topicQuery['title'].'<a></p>
                 <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState'].'&r='.$r.'&session='.$remote.'">'.$mark['NotiStr'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState']."&r=".$r."&session=".$remote.'">'.$mark['FavStr'].'</a></p>
             </div>';
+            }
         }
                
        $out.='</div>';
@@ -203,12 +213,23 @@ $out .= '<div class="notifications-item" style="background-color:rgba(173,173,17
             </div>';     
                 }
             }else{
-                 $out .= '<div class="notifications-item"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+                if($mark['FavState_1'] === "1"){
+  $out .= '<div class="notifications-item"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
                 $out.=' <div class="text">
+                 <i class="fas fa-star"></i>
                 <h4>'.$replyQuery['trip'].'</h4>
                 <p>Created Topic: <a href="'.$removePlugD.'/topic/'.$selTop.'">'.$topicQuery['title'].'<a></p>
                 <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState_1'].'&r='.$t.'&session='.$remote.'">'.$mark['NotiStr_1'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState_1']."&r=".$t."&session=".$remote.'">'.$mark['FavStr_1'].'</a></p>
             </div>';
+                }else{
+                     $out .= '<div class="notifications-item"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+                $out.=' <div class="text">
+                <h4>'.$replyQuery['trip'].'</h4>
+                <p>Created Topic: <a href="'.$removePlugD.'/topic/'.$selTop.'">'.$topicQuery['title'].'<a></p>
+                <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState_1'].'&r='.$t.'&session='.$remote.'">'.$mark['NotiStr_1'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState_1']."&r=".$t."&session=".$remote.'">'.$mark['FavStr_1'].'</a></p>
+            </div>'; 
+                }
+               
             }
           
       $out.= '</div>';
