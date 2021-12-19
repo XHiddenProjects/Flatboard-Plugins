@@ -7,5 +7,5 @@ $lang[$plugin.'author']         = 'SurveyBuilder-Admin';
 $lang[$plugin.'author_site']    = 'https://github.com/surveybuilderteams/Flatboard-Plugins';
 $lang[$plugin.'author_mail']    = 'surveybuildersbot@gmail.com';
 /************* Language  ***************/
-$lang[$plugin.'description']    = 'Recive new notifcation when your out, and not need spam emails';
+$lang[$plugin.'description']    = "Receive new notification when you're out, and not need spam emails";
 ?>
