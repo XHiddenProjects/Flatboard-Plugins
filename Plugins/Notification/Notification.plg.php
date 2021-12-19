@@ -49,13 +49,13 @@ function Notification_menu(){
  $db_user = PLUGIN_DIR.$plugin.DS."db".DS."userList".DS;
  
  $remote = str_replace("@","_",$sessionTrip);
- if(!is_dir($db_user.$remote)){
+ if(!is_dir($db_user.$remote) && !file_exists($db_user.$remote)){
    mkdir($db_user.$remote, 0777);
  }
- if(!is_dir($db_user.$remote.DS."readList")){
+ if(!is_dir($db_user.$remote.DS."readList") && !file_exists($db_user.$remote.DS."readList")){
       mkdir($db_user.$remote.DS."readList", 0777);
  }
- if(!is_dir($db_user.$remote.DS."stared")){
+ if(!is_dir($db_user.$remote.DS."stared") && !file_exists($db_user.$remote.DS."stared")){
       mkdir($db_user.$remote.DS."stared", 0777);
  }
 
