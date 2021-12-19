@@ -17,7 +17,7 @@ if($_GET['s'] === "1"){
     }
 }
 if($_GET['s'] === "0"){
-if(fopen($db_read.$_GET['r'], "w+")){
+if(fopen($db_read.$_GET['r'], "x+")){
 echo "<script>
        setTimeout(function(){
            history.back();

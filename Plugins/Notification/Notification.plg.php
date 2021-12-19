@@ -49,18 +49,18 @@ function Notification_menu(){
  $db_user = PLUGIN_DIR.$plugin.DS."db".DS."userList".DS;
  
  $remote = str_replace("@","_",$sessionTrip);
- if(!is_dir($db_user.$remote) && !file_exists($db_user.$remote)){
+ if(!file_exists($db_user.$remote.DS)){
    mkdir($db_user.$remote, 0777);
  }
- if(!is_dir($db_user.$remote.DS."readList") && !file_exists($db_user.$remote.DS."readList")){
+ if(!file_exists($db_user.$remote.DS."readList".DS)){
       mkdir($db_user.$remote.DS."readList", 0777);
  }
- if(!is_dir($db_user.$remote.DS."stared") && !file_exists($db_user.$remote.DS."stared")){
+ if(!file_exists($db_user.$remote.DS."stared".DS)){
       mkdir($db_user.$remote.DS."stared", 0777);
  }
 
-    $db_read = PLUGIN_DIR.$plugin.DS."db".DS."userList".DS.$remote.DS."readList".DS;
-    $db_star = PLUGIN_DIR.$plugin.DS."db".DS."userList".DS.$remote.DS."stared".DS;
+    $db_read = $db_user.$remote.DS."readList".DS;
+    $db_star = $db_user.$remote.DS."stared".DS;
 
  $isRead = array_values(array_diff(scandir($db_read), array('..', '.')));
  $isStared = array_values(array_diff(scandir($db_star), array('..', '.')));
