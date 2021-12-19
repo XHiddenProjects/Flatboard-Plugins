@@ -262,7 +262,19 @@ function Notification_footerJS(){
 var down = false;
 
 $('#bell').click(function(e){
-
+    //getDevice
+const deviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return 'tablet';
+    }
+    else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+        return 'mobile';
+    }
+    return 'desktop';
+};
+let getDevice = deviceType();
+if(getDevice === 'desktop'){
 var color = $(this).text();
 if(down){
 
@@ -276,10 +288,30 @@ $('#box').css('height','1000%');
 $('#box').css('opacity','1');
 $('#box').css('overflow-y','auto');
 down = true;
+}
+
+}else{
+    var color = $(this).text();
+if(down){
+
+$('#box').css('height','0px');
+$('#box').css('opacity','0');
+$('#box').css('overflow-y','auto');
+down = false;
+}else{
+
+$('#box').css('height','100%');
+$('#box').css('opacity','1');
+$('#box').css('overflow-y','auto');
+down = true;
+}
 
 }
 
+
+
 });
+
 
 });</script>";
 return $out;
