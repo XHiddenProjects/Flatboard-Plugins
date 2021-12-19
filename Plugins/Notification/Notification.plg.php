@@ -63,6 +63,7 @@ function Notification_menu(){
     $db_star = PLUGIN_DIR.$plugin.DS."db".DS."userList".DS.$remote.DS."stared".DS;
 
  $isRead = array_values(array_diff(scandir($db_read), array('..', '.')));
+ $isStared = array_values(array_diff(scandir($db_star), array('..', '.')));
 
 $new=0;
 $old=0;
@@ -75,6 +76,7 @@ $new = $new+count($reply)+count($topic)-count($isRead);
 
 $old = $old+count($reply)+count($topic)-$new;
 $total = $total+count($reply)+count($topic);
+$favorite = count($isStared);
 
   if(isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'on'){
   $img = str_replace($_SERVER['DOCUMENT_ROOT'], "https://".$_SERVER['SERVER_NAME'], $img);
@@ -94,7 +96,7 @@ $total = $total+count($reply)+count($topic);
     }
   $out .= '<div class="icon" id="bell"><img src="'.$bellIcon.'" alt="bell_icon"/></div>
    <div class="notifications" id="box">
-        <h2>Notifications - <span>'.$new.'</span> new | <span>'.$old.'</span> old | <span>'.$total.'</span> total</h2>';
+        <h2>Notifications - <span>'.$new.'</span> new | <span>'.$old.'</span> old | <span>'.$total.'</span> total | <span>'.$favorite.'</span> stared</h2>';
         foreach($reply as $r){
         # upload to extract JSON
         $data = strval(file_get_contents($replys.$r));
