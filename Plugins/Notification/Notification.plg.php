@@ -37,6 +37,8 @@ function Notification_config(){
 function Notification_menu(){
   $plugin = 'Notification';
   global $lang, $cur, $sessionTrip, $selTop, $selRep;
+    $data = flatDB::readEntry('plugin', $plugin);
+    if($data[$plugin.'state']){
   $img = UPLOADS_DIR."avatars".DS;
   $replys = DATA_DIR."reply".DS;
   $topics = DATA_DIR."topic".DS;
@@ -248,13 +250,20 @@ $out .= '<div class="notifications-item" style="background-color:rgba(173,173,17
 }
   return $out;
 }
+}
 function Notification_head(){
     $plugin = 'Notification';
-    $out='';
+    $data = flatDB::readEntry('plugin', $plugin);
+    if($data[$plugin.'state']){
+   $out='';
     $out .= '<link rel="stylesheet" href="'.HTML_PLUGIN_DIR.$plugin.DS."assets".DS."Notification.css?ver=1.0.12".'"/>';
     return $out;
+    }
 }
 function Notification_footerJS(){
+        $plugin = 'Notification';
+    $data = flatDB::readEntry('plugin', $plugin);
+      if($data[$plugin.'state']){
     $out = '';
     $out .= "<script>$(document).ready(function(){
 
@@ -317,5 +326,6 @@ down = true;
 
 });</script>";
 return $out;
+      }
 }
 ?>
