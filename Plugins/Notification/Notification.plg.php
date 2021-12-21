@@ -131,7 +131,7 @@ $favorite = count($isStared);
        }
         if($mark['NotiState'] === "1"){
             if($mark['FavState'] === "1"){
- $out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5) !important;"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+ $out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5);"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
             $out.=' <div class="text">
             <i class="fas fa-star"></i>
                 <h4>'.$replyQuery['trip'].'</h4>
@@ -139,7 +139,7 @@ $favorite = count($isStared);
                 <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState'].'&r='.$r.'&session='.$remote.'">'.$mark['NotiStr'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState']."&r=".$r."&session=".$remote.'">'.$mark['FavStr'].'</a></p>
             </div>';
             }else{
- $out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5) !important;"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+ $out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5);"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
             $out.=' <div class="text">
                 <h4>'.$replyQuery['trip'].'</h4>
                 <p>Replayed to: <a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState'].'&r='.$r.'&session='.$remote.'&url='.$removePlugN.'/topic/'.$selTop.'">'.$topicQuery['title'].'<a></p>
@@ -201,7 +201,7 @@ $favorite = count($isStared);
        }
             if($mark['NotiState_1'] === "1"){
                 if($mark['FavState_1'] === "1"){
-$out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5) !important;"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
+$out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5) ;"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png" alt="img">';
                 $out .= ' <div class="text">
                 <i class="fas fa-star"></i>
                 <h4>'.$replyQuery['trip'].'</h4>
@@ -209,7 +209,7 @@ $out .= '<div class="notifications-item" style="background-color:rgba(173,173,17
                 <p><a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState_1'].'&r='.$t.'&session='.$remote.'">'.$mark['NotiStr_1'].'</a> | <a href="'.HTML_PLUGIN_DIR.$plugin.DS."fav.php?s=".$mark['FavState_1']."&r=".$t."&session=".$remote.'">'.$mark['FavStr_1'].'</a></p>
             </div>';
                 }else{
-         $out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5) !important;"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png"              alt="img">';
+         $out .= '<div class="notifications-item" style="background-color:rgba(173,173,173,0.5);"> <img src="'.$img.str_replace("@","_",$replyQuery['trip']).'.png"              alt="img">';
                 $out .= ' <div class="text">
                 <h4>'.$replyQuery['trip'].'</h4>
                 <p>Created Topic: <a href="'.HTML_PLUGIN_DIR.$plugin.DS.'state.php?s='.$mark['NotiState_1'].'&r='.$t.'&session='.$remote.'&url='.$removePlugD.'/topic/'.$selRep.'">'.$topicQuery['title'].'<a></p>
@@ -256,7 +256,7 @@ function Notification_head(){
     $data = flatDB::readEntry('plugin', $plugin);
     if($data[$plugin.'state']){
    $out='';
-    $out .= '<link rel="stylesheet" href="'.HTML_PLUGIN_DIR.$plugin.DS."assets".DS."Notification.css?ver=1.0.12".'"/>';
+    $out .= '<link rel="stylesheet" href="'.HTML_PLUGIN_DIR.$plugin.DS."assets".DS."Notification.css?ver=2.0.0".'"/>';
     return $out;
     }
 }
