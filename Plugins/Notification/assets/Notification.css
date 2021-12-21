@@ -9,17 +9,17 @@
     border-radius: 50%;
     color: #fff;
     vertical-align: top;
-    margin-left: -25px
+    margin-left: -25px;
 }
 
 .icon img {
     display: inline-block;
     width: 26px;
-    margin-top: 4px
+    margin-top: 4px;
 }
 
 .icon:hover {
-    opacity: .7
+    opacity: .7;
 }
 
 .logo {
@@ -27,7 +27,7 @@
     margin-left: 50px;
     color: #eee;
     font-size: 20px;
-    font-family: monospace
+    font-family: monospace;
 }
 
 .notifications {
@@ -48,11 +48,11 @@
     font-size: 14px;
     padding: 10px;
     border-bottom: 1px solid #eee;
-    color: #999
+    color: #999;
 }
 
 .notifications h2 span {
-    color: #f00
+    color: #f00;
 }
 
 .notifications-item {
@@ -60,11 +60,12 @@
     border-bottom: 1px solid #eee;
     padding: 6px 9px;
     margin-bottom: 0px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .notifications-item:hover {
-    background-color: #eee
+    background-color: #8a8a8a !important;
+    transform: scale(1.1);
 }
 
 .notifications-item img {
@@ -73,18 +74,18 @@
     height: 50px;
     margin-right: 9px;
     border-radius: 50%;
-    margin-top: 2px
+    margin-top: 2px;
 }
 
 .notifications-item .text h4 {
     color: #777;
     font-size: 16px;
-    margin-top: 3px
+    margin-top: 3px;
 }
 
 .notifications-item .text p {
     color: #aaa;
-    font-size: 12px
+    font-size: 12px;
 }
 .notifications-item i{
     color:yellow;
