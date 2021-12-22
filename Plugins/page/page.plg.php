@@ -45,6 +45,11 @@ function page_config()
        }else{
             if (flatDB::isValidEntry('plugin', $plugin))
                $data = flatDB::readEntry('plugin', $plugin);
+                    $pages = PLUGIN_DIR.$plugin.DS."p";
+                $pages = array_values(array_diff(scandir($pages), array('..', '.')));
+                foreach($pages as $p){
+                $v .= '<option value="'.$p.'">'.$p.'</option>';
+                }
                $out .= HTMLForm::form('config.php' . DS . 'plugin' . DS . $plugin, '
 				<div class="row">
 				    <div class="col">'.
@@ -61,19 +66,42 @@ function page_config()
 				    </div>
                 </div>'.   
                 '<div class="row">
+                <div class="col">'.
+                '<select class="getPage" name="pagePlace">'.
+                $v
+               . '</select>'
+                .'</div>
+                </div>
+                <br/>
+                <div class="row">
+                <div class="col">'.
+                HTMLForm::text('NewFile', '', '', '', 'NewFile', false)
+                .'</div>
+                </div>
+                <div class="row">
+                <div class="col">'.
+                HTMLForm::checkBox("DeletePage")
+               .'</div>
+                </div>
+                <div class="row">
                 <div class="col">
-                <div class="alert alert-info" role="alert">
-                        If you need to create a page go to <u>plugins/page/p/create-file.php</u>
-                    </div>
+                '.
+                HTMLForm::textarea("WriteCode", '', 'FileCode', '', '', 'WriteCode', false)
+                .'
+                </div>
                 </div>
                 </div>'  .
-               HTMLForm::simple_submit());
+              '<button class="btn btn-primary" name="savePage" type="submit">Submit</button>'.
+               '&nbsp;<button type="button" class="btn btn-success loadFile">Load File</button>'
+               
+               );
 
     }
     return $out;
      }
-     
+   
 }
+
 
 
 function page_menu()
@@ -115,7 +143,7 @@ function page_view()
   $plugin = 'page';
   $out ='';	  	  
   $data = flatDB::readEntry('plugin', $plugin);
-  $path    = PLUGIN_DIR . "page". DS . "p";
+  $path    = PLUGIN_DIR . $plugin . DS . "p";
 $files = scandir($path);
 $files = array_diff(scandir($path), array('.', '..'));
 $list = '';
@@ -144,9 +172,9 @@ $list = '';
         fwrite($file, $getView);
         fclose($file);
     }
-    $grabView = new getViews();
-    $d = $grabView->toCalc($query->views);
-    $out .= $grabView->ConvertToBadge($d);
+  
+    $d = getViews::toCalc($query->views);
+    $out .= getViews::ConvertToBadge($d);
        $out .= file_get_contents(PLUGIN_DIR."page".DS."p".DS.basename($_SERVER['REQUEST_URI'].".php"));
    
    
@@ -155,10 +183,82 @@ return $out;
   }
 
   function page_footerJS(){
-       $out.='<script>
+      $plugin = 'page';
+  $data = flatDB::readEntry('plugin', $plugin);
+  if($data[$plugin.'state']){
+    $out.='<script>
     setTimeout(function(){
             document.querySelector(".lead").style.display = "none";
     }, 0);
     </script>';
+    $out .= '<script>
+    setTimeout(function(){
+         document.querySelector(".getPage").setAttribute("onkeyup", "removeSpace(event)");
+    }, 0);
+   function removeSpace(event){
+    key = event.keyCode || event.which;
+    if(key === 32){
+        document.querySelector(".getPage").value = document.querySelector(".getPage").value.replace(" ", "-");
+    }
+}
+    </script>';
+    $out.='<script>
+    $(".loadFile").click(function(){
+        let f = $(".getPage option:selected").text().replace(".php", "");
+        $.get("'.HTML_PLUGIN_DIR.$plugin.'/p/"+f+".php", function(data){
+            document.querySelector("#WriteCode").value = data;
+        });
+    });
+    </script>';
     return $out;
   }
+  }
+
+  function page_head(){
+      $out = '';
+      $out .= '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
+      return $out;
+  }
+
+if(isset($_POST['savePage'])){
+     $file = str_replace(".php","",$_POST['pagePlace']);
+    $fullPath = PLUGIN_DIR."page".DS."p".DS.$file.".php";
+    if(isset($_POST['DeletePage'])){
+        if(file_exists($fullPath)){
+            if(!unlink($fullPath)){
+                echo '<div class="alert alert-danger" role="alert">Failed to delete page!</div>';
+      return false;   
+            }else{
+                echo '<div class="alert alert-success" role="alert">Deleted page!</div>';
+                return false;
+            }
+        }else{
+        echo '<div class="alert alert-danger" role="alert">File does not exist!</div>';
+      return false;
+        }
+    }
+    if($_POST['NewFile'] !== ""){
+  $file = str_replace(".php","",$_POST['NewFile']);
+   $fullPath = PLUGIN_DIR."page".DS."p".DS.$file.".php";
+  if(file_exists($fullPath)){
+      echo '<div class="alert alert-danger" role="alert">File already exists!</div>';
+      return false;
+  }else{
+        $pageName = fopen($fullPath, "w+");
+        $myCode = $_POST['WriteCode'];
+            fwrite($pageName,$myCode);
+            fclose($pageName);
+  }
+    }else{
+  $file = str_replace(".php","",$_POST['pagePlace']);
+    $fullPath = PLUGIN_DIR."page".DS."p".DS.$file.".php";
+        $pageName = fopen($fullPath, "w+");
+        $myCode = $_POST['WriteCode'];
+            fwrite($pageName,$myCode);
+            fclose($pageName);
+    }
+  
+}
+
+
+  
