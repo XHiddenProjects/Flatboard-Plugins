@@ -67,6 +67,21 @@ function Notification_menu(){
  $isRead = array_values(array_diff(scandir($db_read), array('..', '.')));
  $isStared = array_values(array_diff(scandir($db_star), array('..', '.')));
 
+foreach($reply as $r){
+if(!file_exists($replys.$r)){
+     if(!unlink($db_read.$r));
+   if(!unlink($db_star.$r)); 
+   if(!unlink($db_reply.$r));
+}
+}
+foreach($topic as $t){
+if(!file_exists($topics.$t)){
+    if(!unlink($db_read.$t));
+   if(!unlink($db_star.$t));
+   if(!unlink($db_topic.$t));
+}
+}
+
 $new=0;
 $old=0;
 $total=0;
