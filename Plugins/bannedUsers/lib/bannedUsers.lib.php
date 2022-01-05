@@ -1,4 +1,5 @@
 <?php
+class bannedUsers{
 function CheckBanned($user){
     $plugin = "bannedUsers";
 $dom = PLUGIN_DIR . $plugin . DS. "db". DS . $user;
@@ -84,6 +85,6 @@ if($query->status === "active"){
     return false;
 }
 }
-
+}
 
 ?>
