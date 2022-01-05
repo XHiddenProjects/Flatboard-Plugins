@@ -34,7 +34,12 @@ function CustomCode_config(){
     global $lang, $token; 
        $plugin = 'CustomCode';
        $out ='';
-        $assets = $_SERVER['DOCUMENT_ROOT'].str_replace($lang['domain'], '', HTML_PLUGIN_DIR). $plugin. DS. 'assets' . DS;
+       if(isset($_SERVER["HTTPS"]) || $_SERVER['HTTPS'] === 'on'){
+           $secu = "https://".$_SERVER['SERVER_NAME'];
+       }else{
+           $secu = "http://".$_SERVER['SERVER_NAME'];
+       }
+        $assets = $_SERVER['DOCUMENT_ROOT'].str_replace($secu, '', HTML_PLUGIN_DIR). $plugin. DS. 'assets' . DS;
 if(User::isAdmin()){
      if(!empty($_POST) && CSRF::check($token) )
        {
