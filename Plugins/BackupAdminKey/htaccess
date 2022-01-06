@@ -1,0 +1,6 @@
+# Deny access to files with extensions
+<FilesMatch "\.(json|js)$">
+Order allow,deny
+Deny from all
+
+</FilesMatch>
