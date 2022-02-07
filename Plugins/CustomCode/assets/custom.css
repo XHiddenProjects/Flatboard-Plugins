@@ -26,3 +26,18 @@ color:black;
 pre, table th, table td{
 color: white;
 }
+.icon-picker i, .icon-picker, .icon-set{
+    color:black !important;
+}
+.lead{
+    display: block !important;
+}
+.card-text{
+color:black;
+}
+a.dropdown-toggle{
+color:white !important;
+}
+label[for="trip"], .trip{
+color: black !important;
+}
