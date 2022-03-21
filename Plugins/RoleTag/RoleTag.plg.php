@@ -99,7 +99,7 @@ function RoleTag_footerJS(){
             var RoleTagOptions = \'{"Admin":{"label":"'.$data['RoleAdmin_label'].'","btn_color": "'.$data['RoleAdmin_btn'].'","txt_color": "'.$data['RoleAdmin_text'].'"},"Moderator":{"label":"'.$data['RoleModerator_label'].'","btn_color": "'.$data['RoleModerator_btn'].'","txt_color": "'.$data['RoleModerator_text'].'"},"Guest":{"label":"'.$data['RoleGuest_label'].'","btn_color": "'.$data['RoleGuest_btn'].'","txt_color": "'.$data['RoleGuest_text'].'"}}\';
             
             </script>';
-            $out .= '<script src="'.HTML_PLUGIN_DIR.$plugin.DS.'js'.DS.'RoleTag.js?v=1.0.0"></script>';
+            $out .= '<script src="'.HTML_PLUGIN_DIR.$plugin.DS.'js'.DS.'RoleTag.js?v=1.1.0"></script>';
             return $out;
         }
 }
