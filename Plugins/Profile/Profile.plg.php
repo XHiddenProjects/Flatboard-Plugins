@@ -93,7 +93,7 @@ function Profile_menu()
 **/
 function Profile_view()
 {
-  global $lang;	
+  global $lang, $sessionTrip;	
   $plugin = 'Profile';
   $out ='';	  	  
   # Lecture des données
@@ -112,19 +112,21 @@ function Profile_view()
       }else{
           $user = "Cookie is not defined";
       }
-    $getUser = $_SESSION['trip'];
-    $str = strpos($getUser, '@');
-    $getCode = substr($getUser, $str+1);
-    $getUser = substr($getUser, -$str-$str, $str);
+    	$itemEntry['id'] 		= flatDB::newEntry();
+		$id 					= $itemEntry['id'];
+		$itemEntry['trip'] 		= $sessionTrip ? HTMLForm::trip(HTMLForm::clean(Parser::translitIt($sessionTrip)), $id) : HTMLForm::trip(HTMLForm::clean(Parser::translitIt($_POST['trip'])), $id);
+    $str = strpos($itemEntry['trip'],  '@');
+    $getCode = substr($itemEntry['trip'] , $str+1);
+    $getUser = substr($itemEntry['trip'] , -$str-$str, $str);
     //pattern='^[a-zA-Z0-9_.+-]+@+[a-zA-Z0-9]+$' {sytax pattern}
       $out.="<style>.profileCon{background-color:gray;color:white;}.profileCon input[type='text']{width:50%;transition:all 0.5s;}.profileCon input[type='text']:focus{border:4px solid rgba(66, 245, 230, 0.5);width:100%;}.profileCon input[type=submit]{width:100%;border-radius:25px;background-color:blue;color:white;}.profileCon p{text-align:center;font-size:32px; color:lightgray;}</style><div class='con profileCon'>
   <form method='post' enctype='multipart/form-data'>
   <p ".$hide .">".$lang['loggin']."</p>
-  <label>".$lang['label_user_psw']."</label><br/><input type='text' ".$disable." placeholder='Enter Encrypted Password' value='".$getCode."' name='psedoProfile' required='' title='".$lang['user_err']."'/>
+  <label>".$lang['label_user_psw']."</label><br/><input class='form-control' type='text' ".$disable." readonly placeholder='Enter Encrypted Password' value='".$getCode."' name='psedoProfile' required='' title='".$lang['user_err']."'/>
   <br/><br/>
   <label>".$lang['img_uplod_label']."</label>&nbsp;<input type='file' ".$disable." required='' name='imgFiles' style='width:100%;' accept='".$data['accept']."'/>
   <br/><br/>
-    <label>".$lang['label_username']."</label>&nbsp;<br/><input type='text' required='' ".$disable." name='customUsername' placeholder='Enter custom username'/>
+    <label>".$lang['label_username']."</label>&nbsp;<br/><input class='form-control' type='text' ".$disable." name='customUsername' placeholder='Enter custom username'/>
   <br/><br/>
   <input type='submit' name='sbtbtn' ".$disable." value='".$lang['save_profile']."'/>
   </form>
@@ -137,7 +139,7 @@ function Profile_view()
   //username
   $tags = flatDB::readEntry('config', 'tags');
   $tagEntry['title'] = $title;
-		$tagEntry['replace'] = '&lt;span class=&quot;badge badge-secondary&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;top&quot; title=&quot;Waiting&quot;&gt;&lt;i class=&quot;fas fa-minus-circle&quot;&gt;&lt;/i&gt;&lt;/span&gt; '.$customUser.'[locating...]';
+		$tagEntry['replace'] = '&lt;span class=&quot;badge badge-success&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;top&quot; title=&quot;User checked&quot;&gt;&lt;i class=&quot;fa fa-certificate&quot;&gt;&lt;/i&gt;&lt;/span&gt; '.$customUser;
 		$tagEntry['hidden_tag'] = 'on';
 		$tagEntry['id'] = flatDB::newEntry();
 		$id = $tagEntry['id'];
@@ -178,7 +180,7 @@ function Profile_view()
   return $out;  
 }
 function Profile_footer(){
-    $script .= "<script>let img = document.querySelectorAll('.rounded-circle');for(i=0;i<img.length;i++){img[i].src = img[i].src + '?u=".time()."'}</script>";
+    $script .= "<script>let img = document.querySelectorAll('.rounded-circle');for(i=0;i<img.length;i++){img[i].src = img[i].src}</script>";
 
     return $script;
 }
