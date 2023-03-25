@@ -66,13 +66,17 @@ function birthday_beforeMain(){
 	$listUser=[];
 	if($d[$plugin.'state']){
 		foreach($d['userList'] as $username => $date){
-			$date = preg_replace('/[\d]{4}-/','',$date);
-			if(date('m-d')===$date){
-				$listUser[] = $username;
+			$md = preg_replace('/[\d]{4}-/','',$date);
+			if(date('m-d')===$md){
+				preg_match('/[\d]{4}/', $date, $y);
+				$d1 = date_create($date);
+				$d2 = date_create(date('Y-m-d'));
+				$diff = date_diff($d1,$d2);
+				$listUser[] = $username.'('.$diff->format("%Y").')';
 			}
 		}
 	}
-	$out .= '<div class="alert alert-info h2 mt-3">'.$lang['intro_bday'].implode(',',$listUser).'!!!</div>';
+	$out .= (!empty($listUser) ? '<div class="alert alert-info h2 mt-3">'.$lang['intro_bday'].implode(',',$listUser).'!!!</div>' : '');
 	return $out;
 }
 ?>
