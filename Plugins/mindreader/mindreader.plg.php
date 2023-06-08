@@ -87,6 +87,46 @@ function mindreader_view(){
 	}
 	return $out;
 }
+function mindreader_buttonTopic(){
+		global $lang;
+	$plugin = 'mindreader';
+	$out='';
+	$d = flatDB::readEntry('plugin', $plugin);
+	$f = PLUGIN_DIR.$plugin.DS.'training.json';
+	$t = json_decode(file_get_contents($f), true);
+	if($d[$plugin.'state']){
+		$out.= '<form method="post"><button class="btn btn-primary" name="mrsummary" value="'.$_GET['topic'].'"><i class="fa fa-save"></i></button></form>';
+	}
+	if(isset($_POST['mrsummary'])){
+		$tp = flatDB::readEntry('topic', $_POST['mrsummary']);
+		!in_array($tp['content'], $t['summary']) ? array_push($t['summary'], $tp['content']) : '';
+		$e = json_encode($t);
+		$o = fopen($f,'w+');
+		fwrite($o,$e);
+		fclose($o);
+	}
+	return $out;
+}
+function mindreader_buttonReply(){
+		global $lang, $reply;
+	$plugin = 'mindreader';
+	$out='';
+	$d = flatDB::readEntry('plugin', $plugin);
+	$f = PLUGIN_DIR.$plugin.DS.'training.json';
+	$t = json_decode(file_get_contents($f), true);
+	if($d[$plugin.'state']){
+		$out.= '<form method="post"><button class="btn btn-primary" name="mrreply" value="'.$reply.'"><i class="fa fa-save"></i></button></form>';
+	}
+	if(isset($_POST['mrreply'])){
+		$r = flatDB::readEntry('reply', $_POST['mrreply']);
+		!in_array($r['content'], $t['replies']) ? array_push($t['replies'], $r['content']) : '';
+		$e = json_encode($t);
+		$o = fopen($f,'w+');
+		fwrite($o,$e);
+		fclose($o);
+	}
+	return $out;
+}
 function mindreader_editor(){
 		global $lang;
 	$plugin = 'mindreader';
