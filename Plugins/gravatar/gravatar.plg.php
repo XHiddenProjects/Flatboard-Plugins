@@ -1,14 +1,4 @@
 <?php defined('FLATBOARD') or die('Flatboard Community.');
-/**
- * Core: include Infinite Ajax Scroll, font awesome 4.7, category icon picker and mini colors JS
- *
- * @author 		Frédéric K.
- * @copyright	(c) 2015-2019
- * @license		http://opensource.org/licenses/MIT
- * @package		FlatBoard
- * @version		2.1
- * @update		2019-03-25
- */	
 function get_gravatar( $email, $s = 80, $d = 'mp', $r = 'g', $img = false, $atts = array() ) {
     $url = 'https://www.gravatar.com/avatar/';
     $url .= md5( strtolower( trim( $email ) ) );
