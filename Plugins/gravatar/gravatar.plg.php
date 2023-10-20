@@ -134,7 +134,7 @@ function gravatar_profile($username){
 
 			$online = $cur!=='home' && IDENTICON_ONLINE ? $usersStat : '';
 		} else $online = '';
-		$out = '<img class="rounded-circle" src="'.$d['users'][$username].'" width="50" height="50" alt="' .$user. '">' .$online. PHP_EOL; 
+		$out = '<img class="rounded-circle" src="'.(isset($d['users'][$username]) ? $d['users'][$username] : DS.basename(dirname(dirname(__DIR__))).DS.'plugin'.DS.$plugin.DS.'img'.DS.'default.png').'" width="50" height="50" alt="' .$user. '">' .$online. PHP_EOL; 
 	}
 	return $out;
 }
