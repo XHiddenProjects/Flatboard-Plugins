@@ -66,14 +66,16 @@ function spamPrevent_init(){
                 array_push($checkAI,['title'=>$topic['title'], 'id'=>$id]);
             }else{
                 for($i=0;$i<count($checkAI);$i++){
-                    similar_text($checkAI[$i]['title'],$topic['title'],$percent);
-                    if($percent>=floatval($data[$plugin.'Measure'])){
-                        if(file_exists(DATA_DIR.'topic/'.$id.'.dat.php')){
-                            delTopicFromForum($id);
-                            unlink(DATA_DIR.'topic/'.$id.'.dat.php');
+                    if(isset($checkAI[$i]['title']) && isset($topic['title'])){
+                        similar_text($checkAI[$i]['title'],$topic['title'],$percent);
+                        if($percent>=floatval($data[$plugin.'Measure'])){
+                            if(file_exists(DATA_DIR.'topic/'.$id.'.dat.php')){
+                                delTopicFromForum($id);
+                                unlink(DATA_DIR.'topic/'.$id.'.dat.php');
+                            }
+                            else
+                                die($plugin.': Error No File->'.(DATA_DIR.'topic/'.$id.'.dat.php'));
                         }
-                        else
-                            die($plugin.': Error');
                     }
                 }
                 array_push($checkAI,['title'=>$topic['title'],'id'=>$id]);
