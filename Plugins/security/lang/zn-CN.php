@@ -1,7 +1,7 @@
 <?php
 /************ 需要插件 **************/
 $lang[$plugin.'name'] = '安全';
-$lang[$plugin.'版本'] = '1.0.1';
+$lang[$plugin.'版本'] = '1.0.3';
 $lang[$plugin.'update'] = '2025-02-09';
 $lang[$plugin.'author'] = '加文';
 $lang[$plugin.'author_site'] = 'https://github.com/XHiddenProjects/Cyber​​Web';

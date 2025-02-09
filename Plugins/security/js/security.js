@@ -1,2 +1,5 @@
-import {Hacking} from 'https://cdn.jsdelivr.net/gh/XHiddenProjects/CyberWeb@1.0.1/cyber.min.js';
-window.addEventListener('load',()=>{const observer = new MutationObserver((mutations, observer) => {Hacking.xss.sanitize();});observer.observe(document, {subtree: true,attributes: true,});});
+import xss from "./xss.min.js"
+window.addEventListener('load',()=>{
+    const observer = new MutationObserver(() => {
+        xss.sanitize();});
+    observer.observe(document, {subtree: true,attributes: true,});});

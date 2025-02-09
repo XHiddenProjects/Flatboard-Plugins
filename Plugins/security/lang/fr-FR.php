@@ -1,7 +1,7 @@
 <?php
 /************* Plugin requis **************/
 $lang[$plugin.'name'] = 'Sécurité';
-$lang[$plugin.'version'] = '1.0.1';
+$lang[$plugin.'version'] = '1.0.3';
 $lang[$plugin.'update'] = '09/02/2025';
 $lang[$plugin.'author'] = 'Gavin';
 $lang[$plugin.'author_site'] = 'https://github.com/XHiddenProjects/CyberWeb';
