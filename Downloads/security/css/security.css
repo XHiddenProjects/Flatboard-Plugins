@@ -1,0 +1,10 @@
+.security_alert{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: 20px;
+}
+.security_alert a{
+    color: rgb(48, 159, 48);
+    text-decoration: underline;
+}
